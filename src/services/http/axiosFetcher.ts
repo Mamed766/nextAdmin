@@ -116,6 +116,7 @@ export function useRequestMutation<Data = any, Error = any>(
 
 type TTriggerArgs = {
   body?: any;
+  url?: any;
   dynamicValue?: any;
   params?: any;
   cacheOnly?: boolean;
