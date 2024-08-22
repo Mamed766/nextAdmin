@@ -12,7 +12,7 @@ import Modal from "./Modal";
 import EditModal from "./EditModal";
 import PostModal from "./PostModal";
 import { mutate } from "swr";
-import getTypeBgColor from "@/helper/buttonChanger";
+import { CardData } from "@/types/type";
 export default function Table() {
   const [openRowIndex, setOpenRowIndex] = useState<number | null | boolean>(
     null
@@ -43,7 +43,7 @@ export default function Table() {
     setOpenRowIndex(false);
   };
 
-  const { data, isLoading, error } = useRequest("data", {
+  const { data, isLoading, error } = useRequest<CardData[]>("data", {
     method: "GET",
     module: "imageApi",
   });
@@ -83,19 +83,18 @@ export default function Table() {
 
     if (searchTerm) {
       sortedData = sortedData.filter((card) =>
-        card.projectName.toLowerCase().includes(searchTerm.toLowerCase())
+        card.projectName?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
     if (filterOption === "A-Z") {
       sortedData = sortedData.sort((a, b) =>
-        a.projectName.localeCompare(b.projectName)
+        (a?.projectName ?? "").localeCompare(b?.projectName ?? "")
       );
     } else if (filterOption === "Newest") {
       sortedData = sortedData.sort(
         (a, b) =>
-          new Date(b.assignedDate).getTime() -
-          new Date(a.assignedDate).getTime()
+          new Date(b?.assignedDate ?? "").getTime() -
+          new Date(a?.assignedDate ?? "").getTime()
       );
     }
 
@@ -181,7 +180,7 @@ export default function Table() {
                       <td className="flex items-center gap-1">
                         <img
                           src={card.projectImage}
-                          className="w-8 h-8"
+                          className="w-8 h-8 rounded-full object-cover"
                           alt=""
                         />
                         <div>
