@@ -160,7 +160,7 @@ export default function Table() {
           </div>
         </div>
         <div className="bg-white rounded p-2">
-          <table className="table-auto w-full">
+          <table className="table-auto border-separate border-spacing-4 w-full">
             <thead className=" ">
               <tr className="text-[13px] ">
                 <th className="text-left w-1/4">Project Name</th>
